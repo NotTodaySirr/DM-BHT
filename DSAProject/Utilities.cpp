@@ -61,17 +61,34 @@ void readFile(string path, int& size, int*& arr)
         fin >> arr[i];
     }
 }
-
-
-
-int readDataType(const string s)
+									
+bool checkValidOutput(const string s)
 {
-    if (s == "-rand") return 0;
-	else if (s == "-sorted") return 1;
-	else if (s == "-rev") return 2;
-	else if (s == "-nsorted") return 3;
-	else return -1;
+	return s == "-both" || s == "-time" || s == "-comp";
 }
+
+bool checkValidInputOrder(const string s)
+{
+	return s == "-rand" || s == "-sorted" || s == "-rev" || s == "-nsorted";
+}
+
+bool checkValidAlgorithm(const string& algorithm)
+{
+	if (algorithm == "selection-sort") return true;
+	else if (algorithm == "binary-insertion-sort") return true;
+	else if (algorithm == "bubble-sort") return true;
+	else if (algorithm == "quick-sort") return true;
+	else if (algorithm == "merge-sort") return true;
+	else if (algorithm == "heap-sort") return true;
+	else if (algorithm == "radix-sort") return true;
+	else if (algorithm == "flash-sort") return true;
+	else if (algorithm == "shell-sort") return true;
+	else if (algorithm == "counting-sort") return true;
+	else if (algorithm == "shaker-sort") return true;
+	else return false;
+}
+
+
 
 void readOutputParameter(const string s, long double& time, long long& comparisons)
 {
@@ -94,7 +111,8 @@ void readOutputParameter(const string s, long double& time, long long& compariso
     }
 }
 
-void readAlgorithm(const string algorithm, int* a,const int size, ld& time, ll& comparisons)
+
+void MeasureAlgorithm(const string algorithm, int* a,const int size, ld& time, ll& comparisons)
 {
 	if (algorithm == "selection-sort")
 	{
@@ -140,15 +158,9 @@ void readAlgorithm(const string algorithm, int* a,const int size, ld& time, ll& 
 	{
 		time = measureSortTime(shakerSort, a, size, comparisons);
 	}
-	else
-	{
-		comparisons = -1;
-		cout << "Invalid algorithm" << endl;
-		return;
-	}
 }
 
-string chuanHoaAlgorithm(const string s)
+string standardizeAlgorithm(const string s)
 {
 	if (s == "selection-sort") return "Selection Sort";
 	else if (s == "binary-insertion-sort") return "Binary Insertion Sort";
@@ -164,11 +176,28 @@ string chuanHoaAlgorithm(const string s)
 	else return "Invalid algorithm";
 }
 
-string chuanhoaDataOrder(const string s)
+string standardizeDataOrder(const string s)
 {
 		if (s == "-rand") return "Random Order";
 	else if (s == "-sorted") return "Sorted Order";
 	else if (s == "-rev") return "Reverse Order";
 	else if (s == "-nsorted") return "Nearly Sorted Order";
 	else return "Invalid data order";
+}
+
+void writetoFile(string path, int* a, int size)
+{
+	ofstream fout(path);
+	if (!fout.is_open())
+	{
+		cout << "Cannot open file\n";
+		return;
+	}
+
+	fout << size << endl;
+	for (int i = 0; i < size; i++)
+	{
+		fout << a[i] << " ";
+	}
+	fout.close();
 }

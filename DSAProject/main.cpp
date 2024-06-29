@@ -98,7 +98,7 @@ int main(const int argc,const char* argv[]) {
 	}
 
 
-	else cout << "can't regconize command " << endl;
+	//else cout << "can't regconize command " << endl;
 	
 	//int n = 10000;
 	//int* a = new int[n];

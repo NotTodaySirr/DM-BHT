@@ -69,6 +69,4 @@ void GenerateData(int* &a, int n, const string datatype)
 
 	//nearly sorted order
 	else if (datatype == "-nsorted") GenerateNearlySortedData(a, n);
-
-	else cout << "Invalid data type" << endl;	
 }
