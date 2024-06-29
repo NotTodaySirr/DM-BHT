@@ -2,7 +2,7 @@
 
 
 //measure time and comparisons
-long long measureSortTime(void (*sortFunc)(int*, int, long long&), int* a, int size,ll& comparisons) {
+long double measureSortTime(void (*sortFunc)(int*, int, long long&), int* a, int size,ll& comparisons) {
     auto start = chrono::high_resolution_clock::now();
     comparisons = 0;
     sortFunc(a, size, comparisons);
@@ -24,7 +24,7 @@ int convertStringToInt(string s)
 	return res;
 }
 
-int readACommand(int argc, char* argv[])
+int readACommand(const int argc,const char* argv[])
 {
     if (argc == 6) return 2;
     else if (argc == 5)
@@ -35,7 +35,7 @@ int readACommand(int argc, char* argv[])
     return -1;
 }
 
-int readCCommand(int argc, char* argv[])
+int readCCommand(const int argc,const char* argv[])
 {
     if (argc == 5) return 4;
     else if (argc == 6) return 5;
@@ -73,7 +73,7 @@ int readDataType(const string s)
 	else return -1;
 }
 
-void readOutputParameter(const string s, long long time, long long comparisons)
+void readOutputParameter(const string s, long double& time, long long& comparisons)
 {
     if (s == "-both")
     {
@@ -94,7 +94,7 @@ void readOutputParameter(const string s, long long time, long long comparisons)
     }
 }
 
-void readAlgorithm(const string algorithm, int* a, int size, ll& time, ll& comparisons)
+void readAlgorithm(const string algorithm, int* a,const int size, ld& time, ll& comparisons)
 {
 	if (algorithm == "selection-sort")
 	{
@@ -146,4 +146,29 @@ void readAlgorithm(const string algorithm, int* a, int size, ll& time, ll& compa
 		cout << "Invalid algorithm" << endl;
 		return;
 	}
+}
+
+string chuanHoaAlgorithm(const string s)
+{
+	if (s == "selection-sort") return "Selection Sort";
+	else if (s == "binary-insertion-sort") return "Binary Insertion Sort";
+	else if (s == "bubble-sort") return "Bubble Sort";
+	else if (s == "quick-sort") return "Quick Sort";
+	else if (s == "merge-sort") return "Merge Sort";
+	else if (s == "heap-sort") return "Heap Sort";
+	else if (s == "radix-sort") return "Radix Sort";
+	else if (s == "flash-sort") return "Flash Sort";
+	else if (s == "shell-sort") return "Shell Sort";
+	else if (s == "counting-sort") return "Counting Sort";
+	else if (s == "shaker-sort") return "Shaker Sort";
+	else return "Invalid algorithm";
+}
+
+string chuanhoaDataOrder(const string s)
+{
+		if (s == "-rand") return "Random Order";
+	else if (s == "-sorted") return "Sorted Order";
+	else if (s == "-rev") return "Reverse Order";
+	else if (s == "-nsorted") return "Nearly Sorted Order";
+	else return "Invalid data order";
 }
