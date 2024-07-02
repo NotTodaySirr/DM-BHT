@@ -26,19 +26,19 @@ int readCCommand(const int argc,const char* argv[]);
 
 void readFile(string path, int& size, int*& arr);
 
-				//valid checking
 
+				//valid checking
 bool checkValidOutput(const string s);
 
 bool checkValidInputOrder(const string s);
 
 bool checkValidAlgorithm(const string& algorithm);
 
+
 				//measure time, comparisons and print result
 void readOutputParameter(const string s, long double& time, long long& comparisons);
 
 void MeasureAlgorithm(const string algorithm, int* a,const int size, ld& time, ll& comparisons);
-
 
 
 				//standardize string

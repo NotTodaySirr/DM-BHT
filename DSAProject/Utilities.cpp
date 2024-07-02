@@ -7,7 +7,7 @@ long double measureSortTime(void (*sortFunc)(int*, int, long long&), int* a, int
     comparisons = 0;
     sortFunc(a, size, comparisons);
     auto end = chrono::high_resolution_clock::now();
-    chrono::duration<double, std::milli> duration = end - start;
+    chrono::duration<long double, std::milli> duration = end - start;
     return duration.count();
 }
 

@@ -41,7 +41,7 @@ void command1(const int argc,const char* argv[])
 	delete[] a;
 }
 
-void command2(int argc,const char* argv[])
+void command2(const int argc,const char* argv[])
 {
 	long long comparisons = 0;
 	ld time = 0;
@@ -80,6 +80,51 @@ void command2(int argc,const char* argv[])
 	writetoFile("output.txt", a, size);
 	
 	delete[] a;
+}
+
+void command3(const int argc, const char* argv[])
+{
+	int* a;
+	long long comparisons[4];
+	ld time[4];
+	string algorithm = argv[2];
+	int size = convertStringToInt(argv[3]);
+	string outputParameter = argv[4];
+	string inputOrder[4] =
+	{
+		"-rand","-nsorted","-sorted","-rev"
+	};
+
+	//check algorithm and input order and output parameter
+	if (!checkValidAlgorithm(algorithm) || !checkValidOutput(outputParameter)) {
+		cout << "Invalid algorithm or input order" << endl;
+		return;
+	}
+
+	cout << "------------Command 3------------" << endl;
+
+	cout << "ALGORITHM MODE" << endl;
+	cout << "Algorithm: " << standardizeAlgorithm(algorithm) << endl;
+	cout << "Input size: " << argv[3] << endl;
+	cout << "---------------------------------" << endl;
+
+	for (int i = 0; i < 4; i++)
+	{
+		a = new int[size];
+		GenerateData(a, size, inputOrder[i]);
+
+		//measure time and comparisons
+		MeasureAlgorithm(algorithm, a, size, time[i], comparisons[i]);
+
+		cout << endl << "Input order: " << standardizeDataOrder(inputOrder[i]) << endl;
+
+		//read output parameter and print result
+		readOutputParameter(outputParameter, time[i], comparisons[i]);
+		cout << "---------------------------------" << endl;
+		delete[] a;
+
+	}
+
 }
 
 void command4(const int argc,const char* argv[])
@@ -126,7 +171,7 @@ void command4(const int argc,const char* argv[])
 	delete[] a;
 
 	// Print result
-	cout << "Running time: " << time[0] << " | " << time[1] << endl;
+	cout << "Running time: " << time[0] << " ms | " << time[1] << " ms." << endl;
 	cout << "Comparisons: " << comparisons[0] << " | " << comparisons[1] << endl;
 }
 
@@ -163,7 +208,7 @@ void command5(const int argc,const char* argv[]) {
 
 	cout << "------------Command 5------------" << endl;
 	cout << "COMPARE MODE" << endl;
-	cout << standardizeAlgorithm(alg1) << "|" << standardizeAlgorithm(alg2) << endl;
+	cout << standardizeAlgorithm(alg1) << " | " << standardizeAlgorithm(alg2) << endl;
 	cout << " Input Size: " << inputSize << endl;	
 	cout << " Input Order: " << standardizeDataOrder(inputOrder) << endl;
 	cout << "---------------------------------" << endl;
@@ -176,10 +221,11 @@ void command5(const int argc,const char* argv[]) {
 	MeasureAlgorithm(alg2, data2, inputSize, running_time2, comparison_count2);
 	
 	// Output
-	cout << "Running time: " << running_time1 << "ms | " << running_time2 << "ms. " << endl;
+	cout << "Running time: " << running_time1 << " ms | " << running_time2 << " ms. " << endl;
 	cout << "Comparisons: " << comparison_count1 << " | " << comparison_count2 << endl;
 
 	delete[] data1;
 	delete[] data2;
 
 }
+
