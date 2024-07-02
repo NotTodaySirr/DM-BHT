@@ -108,10 +108,17 @@ void command3(const int argc, const char* argv[])
 	cout << "Input size: " << argv[3] << endl;
 	cout << "---------------------------------" << endl;
 
+	int count = 0;
+
 	for (int i = 0; i < 4; i++)
 	{
 		a = new int[size];
 		GenerateData(a, size, inputOrder[i]);
+
+		if (i == 0) writetoFile("input_1.txt", a, size);
+		else if (i == 1) writetoFile("input_2.txt", a, size);
+		else if (i == 2) writetoFile("input_3.txt", a, size);
+		else writetoFile("input_4.txt", a, size);
 
 		//measure time and comparisons
 		MeasureAlgorithm(algorithm, a, size, time[i], comparisons[i]);
